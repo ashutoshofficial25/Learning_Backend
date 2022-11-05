@@ -31,7 +31,7 @@ async function findAll() {
       id: 1,
     },
   });
-  console.log("log:",selected)
+  console.log("log:", selected);
   const categories = await Categories.findAll({
     distnict: true,
     col: "id",
