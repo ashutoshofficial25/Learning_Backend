@@ -53,7 +53,33 @@ const getCategoryById = async (req, res) => {
   });
 };
 
+const addNewCategory = async (req, res) => {
+  const categoryToAdd = req.body.name;
+  const product = await Categories.create({
+    name: categoryToAdd,
+  });
+  res.status(201).json({
+    message: "Created",
+    data: product,
+  });
+};
+
+const deleteCategoryById = async (req, res) => {
+  const categoryId = req.params.categoryId;
+  await Categories.destroy({
+    where: {
+      id: categoryId,
+    },
+  });
+  res.status(200).json({
+    message: "Category deleted",
+    data: null,
+  });
+};
+
 module.exports = {
   getAllCategory,
   getCategoryById,
+  addNewCategory,
+  deleteCategoryById,
 };
