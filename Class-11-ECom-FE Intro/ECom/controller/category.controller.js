@@ -35,10 +35,21 @@ const getAllCategory = async (req, res) => {
   });
 };
 
-const getCategoryById = (req, res) => {
+const getCategoryById = async (req, res) => {
+  const id = req.params.categoryId;
+  if (!id) {
+    res.status(400).json({
+      message: "Please enter valid id",
+    });
+  }
+  const category = await Categories.findAll({
+    where: {
+      id: id,
+    },
+  });
   res.status(200).json({
     message: "Success",
-    data: req.params.categoryId,
+    data: category,
   });
 };
 
