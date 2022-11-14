@@ -53,15 +53,47 @@ const getCategoryById = async (req, res) => {
   });
 };
 
-const addNewCategory = async (req, res) => {
+const addNewCategory = async (req, res, next) => {
   const categoryToAdd = req.body.name;
-  const product = await Categories.create({
-    name: categoryToAdd,
-  });
-  res.status(201).json({
-    message: "Created",
-    data: product,
-  });
+  try {
+    const category = await Categories.create({
+      name: categoryToAdd,
+    });
+    res.status(201).json({
+      message: "Created",
+      data: category,
+    });
+  } catch (error) {
+    next(error);
+    throw new Error("Error Happen");
+  }
+};
+
+const updateCategoryById = async (req, res) => {
+  let id = req.params.categoryId;
+  const { name } = req.body;
+  try {
+    let categoriesToUpdate = {
+      name: name,
+    };
+    await Categories.update(categoriesToUpdate, {
+      where: {
+        id: id,
+      },
+    });
+
+    let updateCategory = await Categories.findByPk(id);
+
+    res.status(200).json({
+      message: "Category updated",
+      data: updateCategory,
+    });
+  } catch (error) {
+    res.status(200).json({
+      message: "Something went wrong",
+      data: null,
+    });
+  }
 };
 
 const deleteCategoryById = async (req, res) => {
@@ -82,4 +114,5 @@ module.exports = {
   getCategoryById,
   addNewCategory,
   deleteCategoryById,
+  updateCategoryById,
 };

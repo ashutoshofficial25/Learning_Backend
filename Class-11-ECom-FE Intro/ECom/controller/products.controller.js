@@ -69,4 +69,17 @@ const getProductById = async (req, res) => {
   });
 };
 
-module.exports = { getAllProducts, getProductById };
+const addNewProduct = async (req, res) => {
+  const { name, price, categoryId } = req.body;
+  const product = await Products.create({
+    name: name,
+    price: price,
+    categoryId: categoryId,
+  });
+  res.status(201).json({
+    message: "Created",
+    data: product,
+  });
+};
+
+module.exports = { getAllProducts, getProductById, addNewProduct };
