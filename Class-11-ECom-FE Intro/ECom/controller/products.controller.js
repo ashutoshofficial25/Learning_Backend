@@ -82,4 +82,43 @@ const addNewProduct = async (req, res) => {
   });
 };
 
-module.exports = { getAllProducts, getProductById, addNewProduct };
+const updateProductById = async (req, res) => {
+  const { name, price } = req.body;
+  const id = req.params.productId;
+  const product = await Products.update(
+    { name, price },
+    {
+      where: {
+        id: id,
+      },
+    }
+  );
+
+  let updatedProduct = await Products.findByPk(id);
+  res.status(201).json({
+    message: "Updated",
+    data: updatedProduct,
+  });
+};
+
+const deleteProductById = async (req, res) => {
+  const id = req.params.productId;
+  await Products.destroy({
+    where: {
+      id: id,
+    },
+  });
+
+  res.status(200).json({
+    message: "Deleted Successfully",
+    data: null,
+  });
+};
+
+module.exports = {
+  getAllProducts,
+  getProductById,
+  addNewProduct,
+  updateProductById,
+  deleteProductById,
+};
