@@ -71,6 +71,12 @@ const addNewCategory = async (req, res, next) => {
 
 const updateCategoryById = async (req, res) => {
   let id = req.params.categoryId;
+  if (!id) {
+    return res.status(400).json({
+      status: "Error",
+      message: "Id field is   empty",
+    });
+  }
   const { name } = req.body;
   try {
     let categoriesToUpdate = {
