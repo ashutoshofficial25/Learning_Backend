@@ -1,5 +1,6 @@
 const Products = require("../model/product");
 const sequelizeInstance = require("../config/db.config");
+const Sequelize = require("sequelize");
 const createTable = async () => {
   await sequelizeInstance.sync({ force: true });
   console.log("table created");
@@ -44,9 +45,39 @@ const insertProducts = async () => {
 // insertProducts();
 
 const getAllProducts = async (req, res) => {
-  const products = await Products.findAll();
+  let categoryId = req.query.categoryId;
+  let minPrice = req.query.minPrice;
+  let maxPrice = req.query.maxPrice;
+  let products;
+  if (categoryId) {
+    products = await filterByCategoryId(categoryId);
+  } else if (minPrice && maxPrice) {
+    products = await filterByPriceRange(minPrice, maxPrice);
+  } else {
+    products = await Products.findAll();
+  }
+
   res.status(200).json({
     data: products,
+  });
+};
+
+const filterByCategoryId = async (categoryId) => {
+  return await Products.findAll({
+    where: {
+      categoryId: categoryId,
+    },
+  });
+};
+
+const filterByPriceRange = async (minPrice, maxPrice) => {
+  return await Products.findAll({
+    where: {
+      price: {
+        [Sequelize.Op.gte]: minPrice,
+        [Sequelize.Op.lte]: maxPrice,
+      },
+    },
   });
 };
 
