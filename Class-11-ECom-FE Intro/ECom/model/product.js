@@ -19,14 +19,13 @@ const Products = dbConnection.define(
       notNull: true,
       type: sequelize.DataTypes.INTEGER,
     },
-    categoryId: {
-      notNull: true,
-      type: sequelize.DataTypes.INTEGER,
-    },
   },
   {
-    timeStamps: false,
+    timestamps: false,
   }
 );
+
+// CategoryModel.hasMany(Products);
+// Products.sync({ alter: true });
 
 module.exports = Products;

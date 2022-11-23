@@ -1,12 +1,6 @@
 const Categories = require("../model/category");
 const sequelizeInstance = require("../config/db.config");
 
-const createTable = async () => {
-  await sequelizeInstance.sync({ force: true });
-  console.log("table created");
-};
-// createTable();
-
 const insertCategories = async () => {
   await Categories.bulkCreate([
     {
