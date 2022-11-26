@@ -10,8 +10,6 @@ const Role = db.roles;
 exports.signup = async (req, res) => {
   const { username, email, password } = req.body;
 
-  console.log(username, email, password);
-
   let user = await User.create({
     username: username,
     email: email,

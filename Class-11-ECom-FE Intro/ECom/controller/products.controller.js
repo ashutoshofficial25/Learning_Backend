@@ -49,15 +49,15 @@ const getAllProducts = async (req, res) => {
   if (!req.query) {
     products = await Products.findAll();
   }
-  products = await Products.findAll({
-    where: {
-      categoryId: categoryId,
-      price: {
-        [Sequelize.Op.gte]: minPrice,
-        [Sequelize.Op.lte]: maxPrice,
-      },
-    },
-  });
+  // products = await Products.findAll({
+  //   where: {
+  //     categoryId: categoryId,
+  //     price: {
+  //       [Sequelize.Op.gte]: minPrice,
+  //       [Sequelize.Op.lte]: maxPrice,
+  //     },
+  //   },
+  // });
   // if (minPrice && maxPrice) {
   //   products = await filterByPriceRange(minPrice, maxPrice);
   // }

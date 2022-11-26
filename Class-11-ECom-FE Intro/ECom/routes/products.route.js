@@ -1,7 +1,9 @@
 const express = require("express");
 const productRouter = express.Router();
 const productController = require("../controller/products.controller");
-productRouter.get("/", productController.getAllProducts);
+const authJWT = require("../middlewares/authJWT");
+
+productRouter.get("/", authJWT.verifyToken, productController.getAllProducts);
 
 productRouter.get("/:productId", productController.getProductById);
 
