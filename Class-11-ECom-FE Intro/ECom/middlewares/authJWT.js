@@ -14,7 +14,6 @@ const verifyToken = async (req, res, next) => {
         message: "unsuthorised user",
       });
     }
-
     req.userId = decoded.id;
   });
 

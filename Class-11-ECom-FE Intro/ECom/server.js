@@ -20,7 +20,7 @@ Category.hasMany(Products);
 
 const init = async () => {
   await dbConnection.sync({ force: true });
-  // insertCategories();
+  insertCategories();
   insertRoles();
 };
 
