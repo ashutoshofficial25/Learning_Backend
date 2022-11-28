@@ -4,9 +4,10 @@ const router = require("./routes/index");
 const dbConnection = require("./config/db.config");
 const bodyParser = require("body-parser");
 const ErrorHandler = require("./middlewares/ErrorHandler");
-const Category = require("./model/category");
-const Products = require("./model/product");
-const Roles = require("./model/role");
+const db = require("./model");
+const Category = db.category;
+const Products = db.product;
+const Roles = db.roles;
 const app = express();
 // app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -19,7 +20,7 @@ app.use(ErrorHandler);
 Category.hasMany(Products);
 
 const init = async () => {
-  await dbConnection.sync({ force: true });
+  await db.connection.sync({ force: true });
   insertCategories();
   insertRoles();
 };

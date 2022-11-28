@@ -1,4 +1,5 @@
-const Products = require("../model/product");
+const db = require("../model");
+const Products = db.product;
 const sequelizeInstance = require("../config/db.config");
 const Sequelize = require("sequelize");
 

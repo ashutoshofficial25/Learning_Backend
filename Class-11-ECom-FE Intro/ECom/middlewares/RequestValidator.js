@@ -1,4 +1,5 @@
-const Category = require("../model/category");
+const db = require("../model");
+const Category = db.category;
 
 const requestValidateForCategoryName = (req, res, next) => {
   if (!req.body.name) {

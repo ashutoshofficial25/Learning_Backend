@@ -1,4 +1,5 @@
-const Categories = require("../model/category");
+const db = require("../model");
+const Categories = db.category;
 const sequelizeInstance = require("../config/db.config");
 
 const insertCategories = async () => {
