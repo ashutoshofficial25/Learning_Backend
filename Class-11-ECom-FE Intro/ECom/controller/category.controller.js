@@ -23,11 +23,7 @@ const insertCategories = async () => {
 
 const getAllCategory = async (req, res) => {
   const categories = await Categories.findAll();
-  // res.writeHead(200, { "Content-Type": "application/json" });
-  res.status(200).json({
-    message: "success",
-    data: categories,
-  });
+  res.status(200).json(categories);
 };
 
 const getCategoryById = async (req, res) => {

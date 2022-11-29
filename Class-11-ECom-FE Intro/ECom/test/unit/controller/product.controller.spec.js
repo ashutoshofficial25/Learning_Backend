@@ -30,3 +30,15 @@ describe("Product controller", () => {
     expect(res.json).toHaveBeenCalledWith(testPayload);
   });
 });
+
+test("basic", () => {
+  let data = { name: "ashu" };
+  data.gender = "male";
+
+  expect(data.gender).toBe("male");
+});
+
+test("hello", () => {
+  let a = 5;
+  expect(a).toBe(5);
+});
