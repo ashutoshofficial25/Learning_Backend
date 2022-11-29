@@ -22,8 +22,14 @@ const insertCategories = async () => {
 // insertCategories();
 
 const getAllCategory = async (req, res) => {
-  const categories = await Categories.findAll();
-  res.status(200).json(categories);
+  try {
+    const categories = await Categories.findAll();
+    res.status(200).json(categories);
+  } catch (error) {
+    res.status(400).json({
+      message: "Sonething went wrong",
+    });
+  }
 };
 
 const getCategoryById = async (req, res) => {
@@ -44,19 +50,15 @@ const getCategoryById = async (req, res) => {
   });
 };
 
-const addNewCategory = async (req, res, next) => {
-  const categoryToAdd = req.body.name;
+const addNewCategory = async (req, res) => {
   try {
-    const category = await Categories.create({
-      name: categoryToAdd,
-    });
-    res.status(201).json({
-      message: "Created",
-      data: category,
-    });
+    const category = await Categories.create(req.body);
+    res.status(201).json(category);
   } catch (error) {
-    next(error);
-    throw new Error("Error Happen");
+    res.status(400).json({
+      message: "err",
+      data: null,
+    });
   }
 };
 
@@ -81,10 +83,7 @@ const updateCategoryById = async (req, res) => {
 
     let updateCategory = await Categories.findByPk(id);
 
-    res.status(200).json({
-      message: "Category updated",
-      data: updateCategory,
-    });
+    res.status(200).json(updateCategory);
   } catch (error) {
     res.status(200).json({
       message: "Something went wrong",
